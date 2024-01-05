@@ -4,8 +4,11 @@ project(network-protocol-analyzer)
 set(CMAKE_CXX_STANDARD 14)
 
 
-# Add your source files
-set(SOURCE_FILES main.cpp)
+# Add source files
+file(GLOB SOURCE_FILES 
+    "src/*.cpp"
+    "headers/*.h"
+)
 
 
 # Add the executable
@@ -23,6 +26,12 @@ set(NPCAP_LIB_DIR "${NPCAP_DIR}/Lib/x64")
 # Add include directories for Npcap
 include_directories(${NPCAP_INCLUDE_DIR})
 
+target_include_directories(network-protocol-analyzer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/headers)
+
+target_include_directories(network-protocol-analyzer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+# Add the HAVE_REMOTE definition
+add_definitions(-DHAVE_REMOTE)
 
 # Link against Npcap library
 target_link_libraries(network-protocol-analyzer PRIVATE "${NPCAP_LIB_DIR}/wpcap.lib")
