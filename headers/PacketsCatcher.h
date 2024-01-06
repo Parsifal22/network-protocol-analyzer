@@ -6,10 +6,15 @@ private:
     pcap_t* fp;
     char errbuf[PCAP_ERRBUF_SIZE];
     int res;
-    u_int i;
+    pcap_if_t* alldevs;
+    pcap_if_t* d;
 
 public:
-    PacketsCatcher(int argc, char** argv);
+    PacketsCatcher();
 
-    void readerPackets();
+    void findDevices();
+
+    void openDevice(char * device_name);
+
+    void frameReader();
 };

@@ -34,15 +34,34 @@
 
 #include "top_file.h"
 #include "PacketsCatcher.h"
-#define LINE_LEN 16
 
 
 int main(int argc, char** argv)
 {
  
-    PacketsCatcher pc = PacketsCatcher(argc, argv);
-    
-    pc.readerPackets();
+    PacketsCatcher pc = PacketsCatcher();
+
+
+    if (strcmp(argv[1], "fd") == 0)
+    {
+        pc.findDevices();
+    }
+    else if (strcmp(argv[1], "d") == 0)
+    {
+        if (argc < 3) 
+        {
+            std::cout << "Please indicate the device name" << std::endl;
+            std::cout << "You can use \"fd\" function to get list of available devices" << std::endl;
+            return -1;
+        }
+        else 
+        {
+            std::cout << argv[2] << std::endl;
+            pc.openDevice(argv[2]);
+            pc.frameReader();
+        }
+
+    }
 
     return 0;
 }
