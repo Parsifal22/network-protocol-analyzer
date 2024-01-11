@@ -7,7 +7,6 @@ PacketsCatcher::PacketsCatcher() : fp(nullptr), res(0) {}
 int PacketsCatcher::openDevice(char* device_name) 
 {
         
-    // Do not check for the switch type ('-s')
     if ((fp = pcap_open(device_name,
         100 /*snaplen*/,
         PCAP_OPENFLAG_PROMISCUOUS /*flags*/,
